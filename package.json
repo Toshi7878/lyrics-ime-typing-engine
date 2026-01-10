@@ -1,13 +1,31 @@
 {
   "name": "lyrics-ime-typing-engine",
+  "description": "A typing engine designed for music-based typing games. Provides time-tagged typing map generation and kana/roma input evaluation synchronized with music playback.",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p tsconfig.json",
+    "check": "biome check --diagnostic-level=warn --reporter=summary",
+    "check:fix": "biome check --diagnostic-level=warn --reporter=summary --write",
+    "typecheck": "tsc --noEmit",
+    "upload": "pnpm build && pnpm publish",
+    "version:patch": "pnpm version patch",
+    "version:minor": "pnpm version minor",
+    "version:major": "pnpm version major",
+    "push:tags": "git push --follow-tags"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.13.1"
+  "author": "toshi7878",
+  "license": "MIT",
+  "packageManager": "pnpm@10.13.1",
+
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.7",
+    "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Toshi7878/lyrics-typing-engine",
+    "directory": "lyrics-typing-engine"
+  }
 }

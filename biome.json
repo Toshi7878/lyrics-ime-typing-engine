@@ -1,0 +1,75 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "lineWidth": 120
+  },
+  "linter": {
+    "domains": {
+      "project": "recommended"
+    },
+    "rules": {
+      "correctness": {
+        "useExhaustiveDependencies": "info"
+      },
+      "suspicious": {
+        "noUnknownAtRules": "info"
+      },
+      "complexity": {
+        "noImportantStyles": "info"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "info",
+        "noStaticElementInteractions": "info"
+      },
+      "style": {
+        "noCommonJs": "error",
+        "noDefaultExport": "error",
+        "noNamespace": "error",
+        "useAsConstAssertion": "error",
+        "noDoneCallback": "error",
+        "noEnum": "error",
+        "noExportedImports": "error",
+        "noParameterAssign": "error",
+        "noProcessEnv": "error",
+        "noShoutyConstants": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "noYodaExpression": "error",
+        "useCollapsedElseIf": "error",
+        "useObjectSpread": "error",
+        "useSingleVarDeclarator": "error",
+        "useThrowNewError": "error",
+        "useFilenamingConvention": {
+          "options": {
+            "filenameCases": ["kebab-case"]
+          }
+        },
+        "noRestrictedImports": {
+          "options": {
+            "paths": {
+              "use-breakpoint": "Using use-breakpoint is not encouraged"
+            }
+          }
+        }
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/layout.tsx", "**/page.tsx", "**/loading.tsx", "**/error.tsx", "**/not-found.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    }
+  ]
+}
