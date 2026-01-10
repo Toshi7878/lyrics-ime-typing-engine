@@ -1,0 +1,51 @@
+name: Publish Package
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - dev
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Update pnpm
+        run: pnpm install -g pnpm@latest
+
+      # devブランチの場合のみバージョンを書き換える
+      - name: Modify package.json for dev
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          # パッケージ名は変更せず、バージョンのみプレリリース形式に変更
+          CURRENT_VERSION=$(pnpm pkg get version | tr -d '"')
+          npm version "${CURRENT_VERSION}-dev.$(date +%s)" --no-git-tag-version
+
+      - run: pnpm ci
+      - run: pnpm build --if-present
+      # - run: npm test
+
+      # タグ(v*)の場合は通常公開
+      - name: Publish (Release)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: pnpm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # devブランチの場合はdevタグで公開
+      - name: Publish (Dev)
+        if: github.ref == 'refs/heads/dev'
+        run: pnpm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
