@@ -16,13 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: pnpm/action-setup@v4
+
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Update pnpm
-        run: pnpm install -g pnpm@latest
+          cache: 'pnpm'
 
       # devブランチの場合のみバージョンを書き換える
       - name: Modify package.json for dev
@@ -32,8 +32,8 @@ jobs:
           CURRENT_VERSION=$(pnpm pkg get version | tr -d '"')
           npm version "${CURRENT_VERSION}-dev.$(date +%s)" --no-git-tag-version
 
-      - run: pnpm ci
-      - run: pnpm build --if-present
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       # - run: npm test
 
       # タグ(v*)の場合は通常公開
