@@ -49,8 +49,6 @@ export const buildImeLines = async (mapData: RawMapLine[], options: Options) => 
     }
   }
 
-  console.log(lines);
-
   return lines;
 };
 
