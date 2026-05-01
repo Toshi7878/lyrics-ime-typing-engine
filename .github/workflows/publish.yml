@@ -40,13 +40,9 @@ jobs:
       # タグ(v*)の場合は通常公開
       - name: Publish (Release)
         if: startsWith(github.ref, 'refs/tags/v')
-        run: pnpm publish --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --no-git-checks --provenance
 
       # devブランチの場合はdevタグで公開
       - name: Publish (Dev)
         if: github.ref == 'refs/heads/dev'
-        run: pnpm publish --tag dev
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --tag dev --provenance
