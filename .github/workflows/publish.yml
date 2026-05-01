@@ -24,7 +24,6 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
 
       # devブランチの場合のみバージョンを書き換える
