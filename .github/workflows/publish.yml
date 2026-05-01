@@ -1,50 +1,25 @@
 name: Publish Package
+
 on:
   push:
     tags:
       - 'v*'
-    branches:
-      - dev
 
 permissions:
-  id-token: write
+  id-token: write  # Required for OIDC
   contents: read
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
-          node-version: '22'
-          cache: 'pnpm'
-
-      - name: Update npm
-        run: npm install -g npm@latest
-
-      # devブランチの場合のみバージョンを書き換える
-      - name: Modify package.json for dev
-        if: github.ref == 'refs/heads/dev'
-        run: |
-          CURRENT_VERSION=$(pnpm pkg get version | tr -d '"')
-          npm version "${CURRENT_VERSION}-dev.$(date +%s)" --no-git-tag-version
-
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
-
-      # タグ(v*)の場合は通常公開
-      - name: Publish (Release)
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: pnpm publish --no-git-checks --provenance
-
-      # devブランチの場合はdevタグで公開
-      - name: Publish (Dev)
-        if: github.ref == 'refs/heads/dev'
-        run: pnpm publish --tag dev --provenance
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+      - run: npm publish
