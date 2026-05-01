@@ -1,9 +1,9 @@
 import { normalizeTypingText } from "../normalize-word";
-import type {  Options, WordResult,  } from "../type";
+import type { Options, WordResult } from "../type";
 import { kanaToHira } from "../utils/string";
 
 type EvaluateInputResult = {
-  wordResultUpdates: Array<{ index: number; result: WordResult}>;
+  wordResultUpdates: Array<{ index: number; result: WordResult }>;
   nextWordIndex?: number;
   typeCountDelta: number;
   typeCountStatsDelta: number;
@@ -13,7 +13,7 @@ type EvaluateInputResult = {
 export const evaluateImeInput = (
   input: string,
   typingWord: {
-    expectedWords: string[][][];
+    targetWords: string[][][];
     currentWordIndex: number;
   },
   wordResults: WordResult[],
@@ -27,7 +27,7 @@ export const evaluateImeInput = (
   let typeCountDelta = 0;
   let typeCountStatsDelta = 0;
 
-  const { currentWordIndex, expectedWords } = typingWord;
+  const { currentWordIndex, targetWords } = typingWord;
   if (currentWordIndex >= map.flatWords.length) {
     return {
       wordResultUpdates,
@@ -38,11 +38,11 @@ export const evaluateImeInput = (
     };
   }
 
-  for (const [i, targetWords] of expectedWords.entries()) {
+  for (const [i, targetWord] of targetWords.entries()) {
     if (i < currentWordIndex) continue;
     if (!remainingInput) break;
 
-    const correct = evaluateInputAgainstTarget(remainingInput, targetWords);
+    const correct = evaluateInputAgainstTarget(remainingInput, targetWord);
 
     if (correct.evaluation === "None") {
       const prevEvaluation = wordResults[i - 1]?.evaluation;
@@ -83,7 +83,7 @@ export const evaluateImeInput = (
       wordResults[i] = result;
     }
 
-    const joinedJudgeWord = targetWords.map((chars) => chars[0]).join("");
+    const joinedJudgeWord = targetWord.map((chars) => chars[0]).join("");
     const isGood = correct.evaluation === "Good";
     const wordTypeCount = joinedJudgeWord.length / (isGood ? 1.5 : 1);
 
