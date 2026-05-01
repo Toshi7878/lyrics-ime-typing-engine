@@ -10,6 +10,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -28,13 +31,11 @@ jobs:
       - name: Modify package.json for dev
         if: github.ref == 'refs/heads/dev'
         run: |
-          # パッケージ名は変更せず、バージョンのみプレリリース形式に変更
           CURRENT_VERSION=$(pnpm pkg get version | tr -d '"')
           npm version "${CURRENT_VERSION}-dev.$(date +%s)" --no-git-tag-version
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      # - run: npm test
 
       # タグ(v*)の場合は通常公開
       - name: Publish (Release)
