@@ -90,7 +90,7 @@ export const evaluateImeInput = (
     nextWordIndex = i + 1;
     typeCountDelta += wordTypeCount;
     typeCountStatsDelta += Math.round(wordTypeCount);
-    notificationsToAppend.push(`${i}: ${correct.evaluation}! ${correct.correcting}`);
+    notificationsToAppend.push(`${correct.evaluation}! ${correct.correcting}`);
   }
 
   return {
