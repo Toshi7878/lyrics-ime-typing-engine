@@ -11,4 +11,5 @@ export type {
   Options,
   RawMapLine,
   WordResult,
+  UserResult,
 } from "./type";

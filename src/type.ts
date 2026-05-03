@@ -24,3 +24,6 @@ export type Options = {
   includeRegexPattern: string;
   enableIncludeRegex: boolean;
 };
+
+export type UserResult = { name: string; typeCount: number; wordResults: WordResult[]; currentWordIndex: number };
+
