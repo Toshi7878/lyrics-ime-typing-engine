@@ -1,6 +1,6 @@
-import { normalizeTypingText } from "../normalize-word";
-import type { BuiltImeLine, Options, RawMapLine } from "../type";
-import { zip } from "../utils/array";
+import { normalizeTypingText } from "../normalize-word.js";
+import type { BuiltImeLine, Options, RawMapLine } from "../type.js";
+import { zip } from "../utils/array.js";
 
 export const buildImeLines = async (mapData: RawMapLine[], options: Options) => {
   const { minLineDuration = 5 } = options;

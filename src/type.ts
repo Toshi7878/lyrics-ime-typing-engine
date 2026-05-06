@@ -26,4 +26,3 @@ export type Options = {
 };
 
 export type UserResult = { name: string; typeCount: number; wordResults: WordResult[]; currentWordIndex: number };
-

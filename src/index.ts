@@ -1,15 +1,15 @@
-export { buildImeLines } from "./build/build-map-lines";
-export { buildImeWords } from "./build/build-words";
-export { createFlatWords, createInitWordResults, getTotalNotes } from "./build/modules";
+export { buildImeLines } from "./build/build-map-lines.js";
+export { buildImeWords } from "./build/build-words.js";
+export { createFlatWords, createInitWordResults, getTotalNotes } from "./build/modules.js";
 
-export { evaluateImeInput } from "./evaluete/evaluate-ime-input";
-export { getTargetWords } from "./timer/get-target-words";
+export { evaluateImeInput } from "./evaluete/evaluate-ime-input.js";
+export { getTargetWords } from "./timer/get-target-words.js";
 
 export type {
   BuiltImeLine,
   BuiltImeWord,
   Options,
   RawMapLine,
-  WordResult,
   UserResult,
-} from "./type";
+  WordResult,
+} from "./type.js";

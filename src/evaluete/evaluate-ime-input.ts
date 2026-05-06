@@ -1,6 +1,6 @@
-import { normalizeTypingText } from "../normalize-word";
-import type { Options, WordResult } from "../type";
-import { kanaToHira } from "../utils/string";
+import { normalizeTypingText } from "../normalize-word.js";
+import type { Options, WordResult } from "../type.js";
+import { kanaToHira } from "../utils/string.js";
 
 type EvaluateInputResult = {
   wordResultUpdates: Array<{ index: number; result: WordResult }>;

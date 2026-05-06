@@ -1,4 +1,4 @@
-import type { BuiltImeWord, WordResult } from "../type";
+import type { BuiltImeWord, WordResult } from "../type.js";
 
 export const getTotalNotes = (words: BuiltImeWord[]) => {
   return words.flat(2).reduce((acc, word) => acc + (word?.[0]?.length ?? 0), 0);

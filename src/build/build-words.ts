@@ -1,5 +1,5 @@
-import type { BuiltImeLine } from "../type";
-import { zip } from "../utils/array";
+import type { BuiltImeLine } from "../type.js";
+import { zip } from "../utils/array.js";
 
 export const buildImeWords = async (
   lines: BuiltImeLine[],
